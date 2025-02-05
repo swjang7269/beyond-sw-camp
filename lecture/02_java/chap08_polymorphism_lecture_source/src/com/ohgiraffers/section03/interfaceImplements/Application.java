@@ -5,7 +5,7 @@ package com.ohgiraffers.section03.interfaceImplements;
 // 타입만 상속시킴
 public class Application {
     public static void main(String[] args) {
-        /* 수업목표. 인터페이스(interface)에 대해 이해할 수 있다.*/
+        /* 수업목표. 인터페이스(interface)에 대해 이해할 수 있다. */
         /* 설명.
          *  인터페이스란?
          *   자바의 클래스와 유사한 형태지만 상수 필드(public static final)와

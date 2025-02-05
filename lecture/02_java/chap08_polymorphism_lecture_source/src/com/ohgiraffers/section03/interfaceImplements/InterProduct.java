@@ -1,6 +1,6 @@
 package com.ohgiraffers.section03.interfaceImplements;
 
-// 인터페이스끼리는 다중 상속이 가능하다.
+// 인터페이스는 다중 상속이 가능하다.
 public interface InterProduct extends ParentInterProduct, AnotherParentInterProduct {
 //    public static final int MAX_NUM = 100;    // interface는 어차피 public static final이다.
     int MAX_NUM = 100;  // 상품이 최대 100개만 저장 가능하고 변동 없이 이 값을 활용해라.

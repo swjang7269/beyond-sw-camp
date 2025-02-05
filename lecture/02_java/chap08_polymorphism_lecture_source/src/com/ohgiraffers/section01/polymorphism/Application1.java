@@ -27,7 +27,7 @@ public class Application1 {
         System.out.println();
 
         Animal an1 = new Animal();  // 다형성 X
-        Animal an2 = new Tiger();   // 다셩성 O
+        Animal an2 = new Tiger();   // 다형성 O
         Animal an3 = new Rabbit();  // 다형성 O
 
         /* 설명. Animal은 Tiger나 Rabbit이 아니다. */
