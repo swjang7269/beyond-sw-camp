@@ -16,7 +16,7 @@ public class Application1 {
 
             // read()가 한 싸이클에 한번씩만 실행하도록 하기 위한 변수 선언 및 대입
             /* 설명. 반복 횟수를 셀 필요 없이 EOF(End Of File)를 반환값을 활용하여 처리할 수 있다. */
-            while((input =  fis.read()) != -1) {
+            while ((input = fis.read()) != -1) {
                 System.out.print((char) input);
             }
         } catch (FileNotFoundException e) {
