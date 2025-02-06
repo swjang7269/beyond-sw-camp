@@ -7,6 +7,9 @@ public class SubClass extends SuperClass {
     /* 설명. 부모 클래스를 기준으로 다형성을 적용하여 코드를 작성했을 경우
      *  정적 바인딩에서 동적 바인딩 되었을 떄 예외상황을 override 하는 경우
      */
+    public void method2() throws FileNotFoundException {
+
+    }
 
     /* 설명. 부모 메소드의 예외 클래스와 같은 레벨일 땐 문제 없음 */
 //    @Override
