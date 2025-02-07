@@ -4,4 +4,8 @@ public class Rabbit extends Mammal {
     public void cry() {
         System.out.println("Rabbit Cry");
     }
+
+    public Rabbit() {
+    }
+
 }
