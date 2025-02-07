@@ -14,6 +14,5 @@ public class MyOutput extends ObjectOutputStream {
     @Override
     protected void writeStreamHeader() throws IOException {
         /* 설명. 객체를 파일로 출력할 시 헤더의 개념이 추가되지 않도록 기능 삭제 */
-        reset();
     }
 }
