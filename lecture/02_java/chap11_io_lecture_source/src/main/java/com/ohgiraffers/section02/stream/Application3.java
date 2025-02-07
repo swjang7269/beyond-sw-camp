@@ -27,6 +27,5 @@ public class Application3 {
                 throw new RuntimeException(e);
             }
         }
-
     }
 }
