@@ -1,6 +1,7 @@
 package com.ohgiraffers.section03.filterstream;
 
 import java.io.*;
+import java.util.Scanner;
 
 public class Application1 {
     public static void main(String[] args) {

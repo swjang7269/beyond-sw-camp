@@ -38,6 +38,12 @@ public class Application4 {
             for (int i = 0; i < 4; i++) {
                 oos.writeObject(memArr[i]);
             }
+//            oos.flush();  // oos.close()를 하지 않고 계속하여 넣는다면 한 헤더에 값이 계속 들어간다.
+            // 우리가 오버라이드하여 헤더를 제거한 이유는 새 output 객체를 생성하여 이어 붙일 때를 고려한 것이다.
+            // 스트림을 닫아야 하는 이유
+            // 리소스 자원 낭비,
+            // 데이터 손실 방지(flush나 close없이 종료하면 버퍼에 남은 데이터가 저장 안될 수도 있음)
+            // 파일 및 네트워크 연결 방지 
         } catch (IOException e) {
             throw new RuntimeException(e);
         } finally {
@@ -131,6 +137,7 @@ public class Application4 {
 
         /* 설명. 출력 및 입력까지 잘 완료되었는지 새로운 배열의 회원 정보 확인 */
         for(MemberDTO mem : newMemArr) {
+            if(mem == null) break;
             System.out.println(mem);
         }
     }

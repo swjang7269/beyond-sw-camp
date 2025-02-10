@@ -19,7 +19,7 @@ public class Application {
 
 //        GenericTest<Double> gt1 = new GenericTest<Double>();
         GenericTest<Double> gt1 = new GenericTest<>();      // 다이아몬드 연산자는 한번만 타입까지 작성하면 된다.
-        gt1.getValue();     // 다이아몬드 연산자 안의 참조자료형을 반환하게 되는 것을 확인할 수 있다.
+        gt1.getValue();       // 다이아몬드 연산자 안의 참조자료형을 반환하게 되는 것을 확인할 수 있다.
 //        gt1.setValue(1);    // 타입의 안정성이 높다(다이아몬드 연산자 안 참조자료형을 위반하지 않는다.)
 
         /* 설명.
