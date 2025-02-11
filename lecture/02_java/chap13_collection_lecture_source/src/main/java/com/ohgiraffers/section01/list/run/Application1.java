@@ -88,9 +88,9 @@ public class Application1 {
 
         // 사용 이유 -> 유지 보수의 용이성
 //        List<String> stringList = new ArrayList<>();
-        List<String> stringList = new  LinkedList<>();      // 내림차순 할 때는 ㅣinkedList로 변경
-        stringList.add("apple");                    // 타입 은닉화
-        stringList.add("orange");                   // 실제 객체의 타입을 숨기고 코드 상에서 속이는 것
+        List<String> stringList = new LinkedList<>();       // 내림차순 할 때는 ㅣinkedList로 변경
+        stringList.add("apple");                            // 타입 은닉화
+        stringList.add("orange");                           // 실제 객체의 타입을 숨기고 코드 상에서 속이는 것
         stringList.add("grape");
         stringList.add("mango");
         stringList.add("banana");
@@ -107,7 +107,5 @@ public class Application1 {
         while (iter.hasNext()) {
             System.out.println(iter.next());
         }
-
-
     }
 }

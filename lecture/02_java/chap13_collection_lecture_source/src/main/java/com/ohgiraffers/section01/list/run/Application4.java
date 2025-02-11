@@ -15,7 +15,7 @@ public class Application4 {
         /* 설명.
          *  push(): 값 삽입
          *  pop(): 값 꺼내서 확인
-         *  peek(): 스택 최상단 값 확인(pop은 아님)
+         *  peek(): 스택 최상단 값 확인(pop은 아님) (pop하면 나올 애)
          *  search(): 해당 값이 스택 상단으로 부터 몇 번째에 존재하는지 탐색
          */
         Stack<Integer> integerStack = new Stack<Integer>();
