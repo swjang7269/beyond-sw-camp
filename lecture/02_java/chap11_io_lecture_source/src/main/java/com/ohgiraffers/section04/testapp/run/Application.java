@@ -27,10 +27,18 @@ public class Application {
                 case 1:
                     ms.findAllMembers();
                     break;
-                case 2: break;
-                case 3: break;
-                case 4: break;
-                case 5: break;
+                case 2:
+                    ms.findMemberBy(chooseMemNo());
+                    break;
+                case 3:
+
+                    break;
+                case 4:
+
+                    break;
+                case 5:
+
+                    break;
                 case 9:
                     System.out.println("회원 관리 프로그램을 종료합니다.");
                     return;
@@ -38,5 +46,12 @@ public class Application {
                     System.out.println("번호를 잘못 입력하셨습니다.");
             }
         }
+    }
+
+    /* 설명. 회원 번호를 입력 받아 int로 반ㅘ낳는 메소드*/
+    private static int chooseMemNo() {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("회원 번호: ");
+        return sc.nextInt();
     }
 }

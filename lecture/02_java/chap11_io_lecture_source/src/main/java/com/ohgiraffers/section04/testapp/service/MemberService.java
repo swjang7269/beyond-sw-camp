@@ -12,5 +12,20 @@ public class MemberService {
 
     public void findAllMembers() {
         ArrayList<Member> findMembers = mr.selectAllMembers();
+
+        System.out.println("Service에서 조회 확인: ");
+        for (Member member : findMembers) {
+            System.out.println(member);
+        }
+    }
+
+    public void findMemberBy(int memNo) {
+        Member findMember = mr.selectMemberBy(memNo);
+
+        if (findMember != null) {
+            System.out.println("회원 정보 조회 성공: " + findMember);
+        } else {
+            System.out.println("등록된 회원 정보가 없습니다.");
+        }
     }
 }

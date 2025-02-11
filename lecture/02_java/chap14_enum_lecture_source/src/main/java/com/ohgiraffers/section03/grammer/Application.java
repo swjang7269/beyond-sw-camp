@@ -7,7 +7,7 @@ public class Application {
     public static void main(String[] args) {
         UserRole1 admin = UserRole1.ADMIN;
         System.out.println(admin);
-        System.out.println(admin.getNamtToLowerCase());
+        System.out.println(admin.getNameToLowerCase());
 
         UserRole2 consumer = UserRole2.CONSUMER;
         System.out.println(consumer.ordinal() + " " + consumer.name() + " " + consumer.getDESCRIPTION());

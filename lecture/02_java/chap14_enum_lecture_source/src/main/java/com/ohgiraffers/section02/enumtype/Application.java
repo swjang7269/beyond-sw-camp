@@ -24,7 +24,7 @@ public class Application {
         System.out.println(Subjects.JAVA.toString());   // 오버라이딩 가능
         System.out.println(Subjects.JAVA.name());       // 오버라이딩 불가
 
-        /* 설명. 4. values()를 이용하면 상수값 배열을 받환받고 이를 활용하여 연솝처치해 줄수 있다.
+        /* 설명. 4. values()를 이용하면 상수값 배열을 받환받고 이를 활용하여 연속처리해 줄수 있다.
          *         (상수 필드에 주입된 객체들을 순회할 수 있다.)
          */
         Subjects[] subjects = Subjects.values();

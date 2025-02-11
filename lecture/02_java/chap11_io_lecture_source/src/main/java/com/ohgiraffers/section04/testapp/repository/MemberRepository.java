@@ -28,10 +28,35 @@ public class MemberRepository {
 
             saveMembers(defaultMembers);
         }
+
+        loadMembers();
+    }
+
+    /* 설명. 파일로부터 회원 객체들을 읽어와서 memberList 컬렉션에 저장*/
+    private void loadMembers() {
+        try (ObjectInputStream ois = new ObjectInputStream(
+                new BufferedInputStream(
+                        new FileInputStream(file)
+                )
+        )) {
+            while (true) {
+                memberList.add((Member) ois.readObject());
+            }
+
+        } catch (EOFException e) {
+            System.out.println("회원 정보 조회 완료");
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     // 재활용을 위한 extract -> ArrayList<Member>를 받아 파일로 출력하는 메소드(덮어쓰기)
-    private void saveMembers(ArrayList<Member> Members) {
+    // 다른 클래스에서 호출할 함수인지 아닌지 판단하여 캡슐화
+    private void saveMembers(ArrayList<Member> inputMembers) {
         ObjectOutputStream oos = null;
         try {
             oos = new ObjectOutputStream(
@@ -40,7 +65,7 @@ public class MemberRepository {
                     )
             );
             // Members를 파일에 출력
-            for(Member member : Members) {
+            for (Member member : inputMembers) {
                 oos.writeObject(member);
             }
         } catch (IOException e) {
@@ -56,8 +81,17 @@ public class MemberRepository {
     }
 
     public ArrayList<Member> selectAllMembers() {
+        return memberList;
+    }
 
+    public Member selectMemberBy(int memNo) {
+        Member returnMember = null;
+        for (Member member : memberList) {
+            if(member.getMemNo() == memNo){
+                returnMember = member;
+            }
 
-        return null;
+        }
+        return returnMember;
     }
 }
