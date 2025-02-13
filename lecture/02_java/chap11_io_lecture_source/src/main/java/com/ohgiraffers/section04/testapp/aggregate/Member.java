@@ -16,6 +16,15 @@ public class Member implements Serializable {
     public Member() {
     }
 
+    /* 설명. 회원가입 시 입력받은 5개의 값으로 초기화하는 생성자 */
+    public Member(String id, String pwd, int age, String[] hobbies, BloodType bloodType) {
+        this.id = id;
+        this.pwd = pwd;
+        this.age = age;
+        this.hobbies = hobbies;
+        this.bloodType = bloodType;
+    }
+
     public Member(int memNo, String id, String pwd, int age, String[] hobbies, BloodType bloodType, AccountStatus accountStatus) {
         this.memNo = memNo;
         this.id = id;
