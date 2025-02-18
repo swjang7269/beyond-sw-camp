@@ -1,7 +1,11 @@
 package com.ohgiraffers.chap02.section01.sorting;
 
 /* 수업목표. 병합 정렬을 이해할 수 있다. */
-
+/* 설명.
+ *  병합 정렬(Merge Sort)
+ *   데이터를 분할하고 분할한 집합을 정렬해서 합치는 방식(분할 정복 방식((divide & conquer))으로 정렬한다.
+ *   시간 복잡도는 O(log n)이고 추가 공간이 필요하다.
+ */
 import java.util.Arrays;
 
 public class Application5 {

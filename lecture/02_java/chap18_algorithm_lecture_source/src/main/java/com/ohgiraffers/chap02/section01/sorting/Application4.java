@@ -54,7 +54,7 @@ public class Application4 {
                 high--;
             } while (arr[high] > pivot);    // pivot값보다 작거나 같은 값을 탐색
 
-            if(low >= high) return high;    // 분할점을 찾았다면 반환(pivot값을 기준으로 왼쪽은 더 작은값, 오른쪽은 더 큰 값으로 분류된 상태)
+            if(low >= high) return high;    // 분할점을 찾았다면 반환(pivot값을 기준으로 왼쪽 그룹은 더 작은값, 오른쪽 그룹은 더 큰 값으로 분류된 상태, pivot은 왼쪽 그룹일지, 오른쪽 그룹일지 확정 안됨 -> 각 그룹 내에서는 정렬 안된 상태)
 
             swap(arr, low, high);           // 아직 low < high라면(분할 점을 찾지 못했다면) 두 값을 교환하고 반복
         }
