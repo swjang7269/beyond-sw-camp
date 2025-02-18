@@ -79,7 +79,7 @@ public class Application4 {
             for(int i = 1; i <= node; i++){
                 if(!visit[i] && map[startNode][i] == 1) {
                     q.offer(i);
-                    visit[i] = true;    // 큐에 등록하는 경우(방문) true
+                    visit[i] = true;    // 큐에 등록하는 경우(방문 시) true
                 }
             }
         }
