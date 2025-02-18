@@ -1,5 +1,12 @@
 package com.ohgiraffers.chap03.section01.graph_search;
 
+/* 수업목표. BFS와 x, y좌표를 활용한 문제를 해결할 수 있다. */
+/* 설명.
+ *  너비 우선 탐색(Breadth-First Search)
+ *   FIFO 구조의 queue를 활용한다.
+ *   시작 노드에서 출발해 시작 노드를 기준으로 가까운 노드를 먼저 방문하면서 탐색하는 알고리즘이다.
+ */
+
 import java.io.*;
 import java.util.LinkedList;
 import java.util.Queue;

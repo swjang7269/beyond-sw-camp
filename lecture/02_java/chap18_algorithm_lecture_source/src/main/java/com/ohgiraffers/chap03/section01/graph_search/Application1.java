@@ -1,5 +1,12 @@
 package com.ohgiraffers.chap03.section01.graph_search;
 
+/* 수업목표. DFS를 활용(재귀함수) 하는 예제를 이해할 수 있다. */
+/* 설명
+ *  깊이 우선 탐색(Depth-First Search)
+ *   LIFO 구조에 stack 또는 재귀함수를 활용한다.
+ *   한 쪽 분기를 정하여 최대 깊이까지 탐색 후 분기를 이동하여 다시 탐색하는 알고리즘이다.
+ */
+
 import java.io.*;
 import java.util.StringTokenizer;
 
