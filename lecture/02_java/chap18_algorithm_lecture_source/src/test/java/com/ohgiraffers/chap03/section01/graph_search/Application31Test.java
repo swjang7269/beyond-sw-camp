@@ -12,7 +12,7 @@ import java.util.stream.Stream;
 
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
-public class Application3Test {
+public class Application31Test {
     private static String input1, input2, input3;
     private static Integer output1,output2, output3;
     @BeforeAll
