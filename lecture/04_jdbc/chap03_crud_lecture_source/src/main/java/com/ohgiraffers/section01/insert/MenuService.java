@@ -25,6 +25,6 @@ public class MenuService {
             rollback(con);
         }
 
-        close(con); 
+        close(con);
     }
 }
