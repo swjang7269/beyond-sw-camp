@@ -55,7 +55,7 @@ public class Application1 {
 //            arr[i] = sc.nextInt();      // 공백 전까지 파싱해 문자열 -> int형으로 변환 작업까지 완료
 //        }
 
-        try(BufferedReader br = new BufferedReader(new InputStreamReader(System.in))) {
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(System.in))) {
             int length = Integer.parseInt(br.readLine());
 
             /* 설명. 1. split 활용 */
@@ -93,7 +93,7 @@ public class Application1 {
     public static void bubbleSort(int length, int[] arr) {
         for (int i = 0; i < length - 1; i++) {
             for (int j = 0; j < length - i - 1; j++) {
-                if(arr[j] > arr[j + 1]) {   // 오름차순
+                if (arr[j] > arr[j + 1]) {   // 오름차순
 //              if(arr[j] < arr[j + 1) {    // 내림차순
                     int temp = arr[j];
                     arr[j] = arr[j + 1];
@@ -109,7 +109,7 @@ public class Application1 {
     private static void mySort(int length, int[] arr) {
         for (int i = 0; i < length - 1; i++) {
             for (int j = i + 1; j < length; j++) {
-                if(arr[i] > arr[j]) {
+                if (arr[i] > arr[j]) {
                     int temp = arr[i];
                     arr[i] = arr[j];
                     arr[j] = temp;
