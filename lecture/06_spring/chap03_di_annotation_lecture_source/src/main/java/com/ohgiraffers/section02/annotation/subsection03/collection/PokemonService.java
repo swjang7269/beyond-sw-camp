@@ -15,7 +15,7 @@ public class PokemonService {
 
     /* 설명. 1. 같은 타입의 bean을 List 형태로 주입 */
     /*
-    private List<Pokemon> pokemonList;
+    private final List<Pokemon> pokemonList;
 
     // 생성자 주입이 일어나며 bean이 주입되는 순서는 beanId의 알파벳 순서이다.
     @Autowired
@@ -28,7 +28,7 @@ public class PokemonService {
     */
 
     /* 설명. 2. 같은 타입의 bean을 map 형태로도 주입 받을 수 있다. */
-    private Map<String, Pokemon> pokemonMap;
+    private final Map<String, Pokemon> pokemonMap;
 
     public PokemonService(Map<String, Pokemon> pokemonMap) {
         this.pokemonMap = pokemonMap;
