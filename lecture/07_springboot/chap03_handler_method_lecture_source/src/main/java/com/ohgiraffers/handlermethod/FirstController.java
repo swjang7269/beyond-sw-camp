@@ -3,10 +3,7 @@ package com.ohgiraffers.handlermethod;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -75,5 +72,23 @@ public class FirstController {
     }
 
     @GetMapping("search")
-    public void search(){}
+    public void searchMenu(){}
+
+    // 사용자 입력값과 일치하는 필드에 setter를 활용해 객체를 만들어 전달
+    /* 설명.
+     *  핸들러 메소드에 우리가 작성한 클래스(bean은 아니다)를 매개변수로 작성하면 스프링이 객체를 만들어 주고(기본 생성자)
+     *  setter로 값도 주입해 준다. 이러한 클래스의 객체를 '커맨드 객체'라고 한다.
+     *   (커맨드 객체는 기본생성자와 setter가 필수)
+     *
+     * 설명.
+     *  @ModelAttribute 어노테이션을 활용하면 커맨드 객체를 모델에 attribute로 담아주며 이후 view의 재료로
+     *  사용할 수 있다.(키 값 작성 유무에 따라 화면에서 활용하는 방법이 다르다)
+     */
+    @PostMapping("search")
+    public String searchMenu(@ModelAttribute MenuDTO menu) {    // 커맨드 객체에 담은 정보를 모델에도 담아준다.(@ModelAttribute)
+        System.out.println("menu = " + menu);
+        return "/first/searchResult";
+    }
+
+
 }
