@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?> <!-- 쿼리문을 실행하기 위한 매핑 정보 -->
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="MenuMapper">
+    <resultMap type="com.ohgiraffers.section01.xmlconfig.MenuDTO" id="menuResultMap"> <!-- resultType을 사용자가 원하는 타입으로 매핑 -->
+        <!-- 필드명와 컬럼을 매핑 -->
+        <id property="menuCode" column="MENU_CODE"/>  <!-- primary key는 id로 -->
+        <result property="menuName" column="MENU_NAME"/>    <!-- 일반 속성은 result로 -->
+        <result property="menuPrice" column="MENU_PRICE"/>
+        <result property="categoryCode" column="CATEGORY_CODE"/>
+        <result property="orderableStatus" column="ORDERABLE_STATUS"/>
+    </resultMap>
+
+    <select id="selectAllMenus" resultMap="menuResultMap"> <!-- menuResultMap을 이용하여 menuDTO로 변환 -->
+        SELECT
+               MENU_CODE
+             , MENU_NAME
+             , MENU_PRICE
+             , CATEGORY_CODE
+             , ORDERABLE_STATUS
+          FROM TBL_MENU
+    </select>
+
+    <select id="selectMenuByMenuCode" parameterType="_int" resultMap="menuResultMap">
+        SELECT
+               MENU_CODE
+             , MENU_NAME
+             , MENU_PRICE
+             , CATEGORY_CODE
+             , ORDERABLE_STATUS
+          FROM TBL_MENU
+         WHERE MENU_CODE = #{menuCode}  <!-- 넘어온 인자를 삽입 -->
+    </select>
+
+<!--    <insert id="insertMenu" parameterType="com.ohgiraffers.section01.xmlconfig.MenuDTO">-->
+    <insert id="insertMenu" parameterType="MenuDTO">
+        INSERT
+          INTO TBL_MENU
+        (
+          MENU_NAME
+        , MENU_PRICE
+        , CATEGORY_CODE
+        , ORDERABLE_STATUS
+        )
+        VALUES
+        (
+          #{menuName}
+        , #{menuPrice}
+        , #{categoryCode}
+        , 'Y'
+        )
+    </insert>
+
+    <update id="updateMenu" parameterType="MenuDTO">
+        UPDATE
+               TBL_MENU
+           SET MENU_NAME = #{menuName}
+             , MENU_PRICE = #{menuPrice}
+         WHERE MENU_CODE = #{menuCode}
+    </update>
+
+    <delete id="deleteMenu" parameterType="Integer">
+        DELETE
+          FROM TBL_MENU
+         WHERE MENU_CODE = #{menuCode}
+    </delete>
+</mapper>
