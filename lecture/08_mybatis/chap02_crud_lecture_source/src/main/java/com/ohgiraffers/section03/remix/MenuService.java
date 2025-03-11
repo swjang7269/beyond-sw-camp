@@ -1,10 +1,11 @@
-package com.ohgiraffers.section02.javaconfig;
+package com.ohgiraffers.section03.remix;
 
 import org.apache.ibatis.session.SqlSession;
 
 import java.util.List;
 
-import static com.ohgiraffers.section02.javaconfig.Template.getSqlSession;
+import static com.ohgiraffers.section03.remix.Template.getSqlSession;
+
 
 public class MenuService {
 
@@ -30,7 +31,7 @@ public class MenuService {
         SqlSession sqlSession = getSqlSession();
 
         menuMapper = sqlSession.getMapper(MenuMapper.class);
-        MenuDTO menu = menuMapper.selectMenu(menuCode);
+        MenuDTO menu = menuMapper.selectMenuByMenuCode(menuCode);
 
         sqlSession.close();
 

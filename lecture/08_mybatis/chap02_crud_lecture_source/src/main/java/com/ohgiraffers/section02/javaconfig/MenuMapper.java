@@ -3,7 +3,7 @@ package com.ohgiraffers.section02.javaconfig;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
-
+// DAT + Mapper 역할
 public interface MenuMapper {
 
     @Results(id="menuResultMap", value = {
