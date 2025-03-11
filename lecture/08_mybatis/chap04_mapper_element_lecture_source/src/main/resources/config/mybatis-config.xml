@@ -22,7 +22,7 @@
     <!-- 설명. mapper들이 존재하는 패키지 -->
     <!-- 해당 패키지 내에 있는 파일을 등록 -->
     <mappers>
-        <package name="com.ohgiraffers.section01.xml"/>
+        <package name="com.ohgiraffers.section01.xmlmapper"/>
     </mappers>
 
 </configuration>
