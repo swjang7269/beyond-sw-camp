@@ -26,6 +26,51 @@
          WHERE A.ORDERABLE_STATUS = 'Y'
     </select>
 
+    <!-- join을 위한 resultMap들 -->
+    <!-- 실제 DB의 컬럼명과 보통 사용하는 view의 컬럼명이 다를 경우 자동 매핑이 안되므로 유지 보수 등 여러 측면에서 매핑 즉, resultMap을 명시적으로 표기해줄것 -->
+    <resultMap id="menu2CategoryResultMap" type="com.ohgiraffers.section01.xmlmapper.Menu2CategoryDTO">
+        <id property="menuCode" column="MENU_CODE"/> <!-- 쿼리문 실행 결과로 얻은 결과 테이블의 컬럼명으로 지정 가능 -->
+        <result property="menuName" column="MENU_NAME"/> <!-- AS를 통해 컬럼에 별칭을 달아준 별칭으로 매핑이 가능 -->
+        <result property="menuPrice" column="MENU_PRICE"/>
+        <!-- categoryCode 부분은 join의 객체 category가 들어오므로 수정이 필요 -->
+        <!-- categoryResultMap의 매핑 결과 category를 받아와야한다. -->
+        <result property="orderableStatus" column="ORDERABLE_STATUS"/>
+        <!-- categoryResultMap의 매핑 결과의 객체 1개를 category에 받아온다. -->
+        <association property="category" resultMap="categoryResultMap"/>
+    </resultMap>
 
+    <resultMap id="categoryResultMap" type="com.ohgiraffers.section01.xmlmapper.CategoryDTO">
+        <id property="categoryCode" column="CATEGORY_CODE"/>
+        <result property="categoryName" column="CATEGORY_NAME"/>
+        <result property="refCategoryCode" column="REF_CATEGORY_CODE"/>
+    </resultMap>
+
+<!--    <resultMap id="menu2CategoryResultMap" type="com.ohgiraffers.section01.xmlmapper.Menu2CategoryDTO">-->
+<!--        <id property="menuCode" column="MENU_CODE"/>-->
+<!--        <result property="menuName" column="MENU_NAME"/>-->
+<!--        <result property="menuPrice" column="MENU_PRICE"/>-->
+<!--        <result property="orderableStatus" column="ORDERABLE_STATUS"/>-->
+<!--        <association property="category" javaType="com.ohgiraffers.section01.xmlmapper.CategoryDTO">-->
+        <!-- association 내부에 객체 내부 정보를 매핑하는 방법을 통해 resultMap으로 따로 저장하지 않고
+        일회성으로 조인할 때만 사용할 수도 있다. -->
+<!--            <id property="categoryCode" column="CATEGORY_CODE"/>-->
+<!--            <result property="categoryName" column="CATEGORY_NAME"/>-->
+<!--            <result property="refCategoryCode" column="REF_CATEGORY_CODE"/>-->
+<!--        </association>-->
+<!--    </resultMap>-->
+
+    <select id="selectResultMapAssociationTest" resultMap="menu2CategoryResultMap">
+        SELECT
+               A.MENU_CODE
+             , A.MENU_NAME
+             , A.MENU_PRICE
+             , A.CATEGORY_CODE
+             , B.CATEGORY_NAME
+             , B.REF_CATEGORY_CODE
+             , A.ORDERABLE_STATUS
+          FROM TBL_MENU A
+          JOIN TBL_CATEGORY B ON (A.CATEGORY_CODE = B.CATEGORY_CODE)
+         WHERE A.ORDERABLE_STATUS = 'Y'
+    </select>
 
 </mapper>

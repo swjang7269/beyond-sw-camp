@@ -18,6 +18,12 @@ public class ElementService {
     }
 
     public void selectResultMapAssociationTest() {
+        SqlSession sqlSession = getSqlSession();
+        ElementMapper mapper = sqlSession.getMapper(ElementMapper.class);
 
+        List<Menu2CategoryDTO> menus = mapper.selectResultMapAssociationTest(); // menu를 기준으로 Category join(menu 1개 기준으로 category는 1개 즉, 1:1 -> Association)
+        menus.forEach(System.out::println);
+
+        sqlSession.close();
     }
 }
