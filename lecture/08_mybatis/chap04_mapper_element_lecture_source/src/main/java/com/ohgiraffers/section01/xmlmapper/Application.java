@@ -22,7 +22,7 @@ public class Application {
                     elementService.selectResultMapAssociationTest();
                     break;
                 case 3:
-
+                    elementService.selectResultMapCollectionTest();
                     break;
             }
         } while (true);
