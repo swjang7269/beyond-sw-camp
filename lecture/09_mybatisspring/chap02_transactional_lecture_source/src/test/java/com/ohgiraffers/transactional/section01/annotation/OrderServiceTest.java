@@ -8,6 +8,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -17,6 +18,7 @@ import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
+@Transactional  // 테스트 시 실제 DB에 반영되지 않도록(commit X) (But Autoincrement는 증가 -> 수동으로 다시 초기화)
 class OrderServiceTest {
     @Autowired
     OrderService orderService;
