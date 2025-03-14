@@ -231,7 +231,7 @@ public class EntityLifeCycleTest {
 //        System.out.println("entityManager의 menu2Detach 관리 여부: " + entityManager.contains(menu2Detach));    // detached entity -> false
         System.out.println("entityManager2의 menu2Detach 관리 여부: " + entityManager2.contains(menu2Detach));
         System.out.println("====== menu2Detach 수정 =====");
-        menu2Detach.setMenuName("1234");
+        menu2Detach.setMenuName("4321");
         System.out.println("수정 후 menu2Detach: " + menu2Detach);
 
         Menu newMenu = entityManager2.find(Menu.class, 3);
@@ -273,5 +273,91 @@ public class EntityLifeCycleTest {
         System.out.println("menu2Detach = " + menu2Detach);
         System.out.println("newMenu = " + newMenu);
         System.out.println("foundMenu = " + foundMenu);
+    }
+
+    // 그럼 트랜잭션 내에 새 트랜잭션 생성해서 해볼까?
+    @Test
+    public void transaction_test() {
+        EntityTransaction transaction = entityManager.getTransaction(); // 트랜잭션 생성
+        transaction.begin(); // 트랜잭션 시작
+
+        Menu menu2Detach = entityManager.find(Menu.class, 4);    // 4번 메뉴 managed entity로
+        System.out.println("menu2Detach 영속 여부: " + entityManager.contains(menu2Detach));    // managed entity -> true
+        entityManager.close();  // persistence context close (menu2Detach는 detached entity)
+
+        // 새 트랜잭션도 만들어보자
+        EntityManager entityManager2 = entityManagerFactory.createEntityManager();  // 새 entity manager 생성
+        EntityTransaction transaction2 = entityManager2.getTransaction();
+
+        transaction2.begin();
+
+        System.out.println("entityManager2의 menu2Detach 관리 여부: " + entityManager2.contains(menu2Detach));   // false
+        System.out.println("====== menu2Detach 수정 =====");
+        menu2Detach.setMenuName("1234");
+        System.out.println("수정 후 menu2Detach: " + menu2Detach);
+
+        Menu newMenu = entityManager2.find(Menu.class, 3);
+        System.out.println("newMenu 영속 여부: " + entityManager2.contains(newMenu));
+        System.out.println("newMenu = " + newMenu);
+
+        System.out.println("====== newMenu 수정 =====");
+        newMenu.setMenuName("9876");
+        System.out.println("수정 후 newMenu: " + newMenu);
+
+        Menu eqMenu = entityManager2.find(Menu.class, 4);   // 동일 id가 없다면 transaction.commit()이 일어날 떄 dirty checking이 발생(내부 구현상)
+        eqMenu.setMenuName("5678");
+
+//        entityManager2.merge(menu2Detach);  // 정상적으로 덮어쓰기 머지
+
+        transaction2.commit();
+
+        transaction.commit();
+
+        System.out.println("menu2Detach = " + menu2Detach);
+        System.out.println("id=3" + entityManager2.find(Menu.class, 3));
+        System.out.println("id=4" + entityManager2.find(Menu.class, 4));
+    }
+
+    // 이름 통일해볼까?
+    @Test
+    public void transaction_test2() {
+        EntityTransaction transaction = entityManager.getTransaction(); // 트랜잭션 생성
+        transaction.begin(); // 트랜잭션 시작
+
+        Menu menu2Detach = entityManager.find(Menu.class, 4);    // 4번 메뉴 managed entity로
+        System.out.println("menu2Detach 영속 여부: " + entityManager.contains(menu2Detach));    // managed entity -> true
+        entityManager.close();  // persistence context close (menu2Detach는 detached entity)
+
+        // 새 트랜잭션도 만들어보자
+        EntityManager entityManager = entityManagerFactory.createEntityManager();  // 새 entity manager 생성
+        EntityTransaction transaction2 = entityManager.getTransaction();
+
+        transaction2.begin();
+
+        System.out.println("entityManager2의 menu2Detach 관리 여부: " + entityManager.contains(menu2Detach));   // false
+        System.out.println("====== menu2Detach 수정 =====");
+        menu2Detach.setMenuName("1234");
+        System.out.println("수정 후 menu2Detach: " + menu2Detach);
+
+        Menu newMenu = entityManager.find(Menu.class, 3);
+        System.out.println("newMenu 영속 여부: " + entityManager.contains(newMenu));
+        System.out.println("newMenu = " + newMenu);
+
+        System.out.println("====== newMenu 수정 =====");
+        newMenu.setMenuName("9876");
+        System.out.println("수정 후 newMenu: " + newMenu);
+
+        Menu eqMenu = entityManager.find(Menu.class, 4);   // 동일 id가 없다면 transaction.commit()이 일어날 떄 dirty checking이 발생(내부 구현상)
+        eqMenu.setMenuName("5678");
+
+//        entityManager2.merge(menu2Detach);  // 정상적으로 덮어쓰기 머지
+
+        transaction2.commit();
+
+        transaction.commit();
+
+        System.out.println("menu2Detach = " + menu2Detach);
+        System.out.println("id=3 " + entityManager.find(Menu.class, 3));
+        System.out.println("id=4 " + entityManager.find(Menu.class, 4));
     }
 }
