@@ -15,7 +15,7 @@ spring:
     database: mysql
     properties:
       hibernate:
-        '[format_sql]': ture
+        '{format_sql}': ture
 logging:
   level:
     com:
