@@ -12,6 +12,7 @@ public class Pagination {
         int endPage;                    // 해당 화면의 마지막 버튼
         
         startPage = (int)(Math.ceil(currentPage / (double)defaultButtonCount) - 1) * defaultButtonCount + 1;    // 모듈러 연산과 비슷한 개념 -1, + 1은 index와 숫자의 괴리를 맞추기 위함
+//        startPage = (int)(Math.ceil((currentPage-1) / defaultButtonCount)) * defaultButtonCount + 1;    // 위와 동일
         // (currentPage / defaultButtonCount) - 1 부분의 -1은 현재 페이지가 속한 블록의 인덱스
         // * defaultButtonCount를 통해 해당 블록의 첫 번째 페이지의 인덱스를 구함
         // defaultButtonCount + 1 의 +1 은 인텍스를 해당 페이지 번호
@@ -19,8 +20,8 @@ public class Pagination {
         // defaultButtonCount 즉, 반복되는 1의 자리를 버리고 맨 앞을 추출하기 위함
         endPage = startPage + defaultButtonCount - 1;
 
-        if (page.getTotalPages() < endPage) // totalPage가 마지막 페이지보다 작으면 totalPage가 마지막 페이지 버튼이 된다.
-            endPage = page.getTotalPages();
+//        if (page.getTotalPages() < endPage) // totalPage가 마지막 페이지보다 작으면 totalPage가 마지막 페이지 버튼이 된다.
+//            endPage = page.getTotalPages();
 
         if (page.getTotalPages() == 0) {    // 화면에 보일 내용이 없다면 default로 1페이지 -> startPage와 endPage가 같다.
             endPage = startPage;
