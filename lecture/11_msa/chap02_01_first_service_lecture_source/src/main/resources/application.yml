@@ -1,6 +1,6 @@
 server:
 #  port: 8111
-  port: 0 # ?? ?? ??
+  port: 0 # 랜덤 포트 할당
 
 spring:
   application:

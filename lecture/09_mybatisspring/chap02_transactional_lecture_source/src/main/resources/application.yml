@@ -6,3 +6,6 @@ spring:
 #    jdbc-url: jdbc:log4jdbc:mariadb://localhost:3306/menudb
     username: root
     password: mariadb
+
+server:
+  port: 8111

@@ -7,23 +7,56 @@ spring:
     name: gateway-server
   cloud:
     gateway:
-      routes:
-        - id: 1st-service-get
-#          uri: http://localhost:62165/
-          uri: lb://1ST-SERVICE # ?? ???? ??
-          predicates:
-            - Path=/first-service/**
-          filters:
-          # ???? ??? ?? ??????? ??? ??? ???? ?? ??? ???? ??
-          # ?????? ?????? ???? ??? ??? ????.
-            - RewritePath=/first-service/(?<segment>.*), /$\{segment}
+      routes: # 패턴 매핑인식은 절차적으로 인식하므로 구체적인 것(하위 구현)을 상단에 작성
+#        - id: 1st-service-get
+#          # uri: http://localhost:62165/
+#          # 라우팅 될 마이크로 서비스 application name을 작성(유레카 서버의 대시보드에서 이름 확인)
+#          uri: lb://1ST-SERVICE # 로드 밸런서를 사용
+#          # 게이트웨이 요청이 아래와 같은 패턴으로 온다면(일종의 조건문)
+#          predicates:
+#            - Path=/first-service/**
+#          # 이후 라우팅 될 마이크로 서비스에 /first-service라는 접두사가 제외되어 요청하게 될 내용 + 필터
+#          filters:
+#          # 결합도를 낮추기 위해 게이트웨이에서 판단의 지표인 접두사를 뺴고 요청을 날리도록 수정
+#          # 게이트웨이를 수정하더라도 백엔드를 수정할 필요가 없어진다.
+#            - RewritePath=/first-service/(?<segment>.*), /$\{segment}
+#            - AddRequestHeader=first-request, first-request-header  # 전처리
+#            - AddResponseHeader=first-response, first-response-header # 후처리
+#
+#        - id: 2nd-service-get
+#          uri: lb://2ND-SERVICE
+#          predicates:
+#            - Path=/second-service/**
+#          filters:
+#            - RewritePath=/second-service/(?<segment>.*), /$\{segment}
 
-        - id: 2nd-service-get
-          uri: lb://2ND-SERVICE
+          # 모든 요청이 게이트웨이에 등록되어야 한다.
+        - id: user-service-post
+          uri: lb://SWCAMP-USER-SERVICE
           predicates:
-            - Path=/second-service/**
+            - Path=/user-service/**
+            - Method=POST
           filters:
-            - RewritePath=/second-service/(?<segment>.*), /$\{segment}
+            - RewritePath=/user-service/(?<segment>.*), /$\{segment}
+
+        - id: user-service-get # 토큰을 들고와야만 가능하도록 설정할 예정 (토큰을 안들고 오면 게이트웨이에서 밴)
+          uri: lb://SWCAMP-USER-SERVICE
+          predicates:
+            - Path=/user-service/**
+            - Method=GET
+          filters:
+            - RewritePath=/user-service/(?<segment>.*), /$\{segment}
+            - AuthorizationHeaderFilter # 커스텀 필터
+
+        - id: order-service-get
+          uri: lb://SWCAMP-ORDER-SERVICE
+          predicates:
+            - Path=/order-service/**
+            - Method=GET
+          filters:
+            - RewritePath=/order-service/(?<segment>.*), /$\{segment}
+            - AuthorizationHeaderFilter
+
 eureka:
   instance:
     instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
@@ -32,3 +65,8 @@ eureka:
     fetch-registry: true
     service-url:
       defaultZone: http://localhost:8761/eureka
+
+# user-service의 토큰 시크릿 정보(나중에 수업 다시 듣고 확인하기)
+token:
+  expiration_time: 43200000
+  secret:

@@ -1,0 +1,31 @@
+server:
+  port: 8111
+
+spring:
+  application:
+    name: swcamp-user-service
+
+  ## db config
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: jdbc:mariadb://localhost:3306/menudb
+    username: swcamp
+    password: swcamp
+
+  ## jpa config
+  jpa:
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+    database: mysql
+    properties:
+      hibernate:
+        '[format_sql]': true
+
+token:
+  expiration_time: 43200000
+  secret: FqSgMPMdL8Ce0Haco2j71LRDOz1hqR0oolHRI5VMQtLZ7ENfR4Vh5n9L1jPEIjFGeJGLXeFtXMfxeYs50pR0DQ==
+
+
+
+
