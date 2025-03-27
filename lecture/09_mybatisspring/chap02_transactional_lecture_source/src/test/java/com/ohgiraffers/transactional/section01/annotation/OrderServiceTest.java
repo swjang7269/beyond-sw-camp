@@ -43,4 +43,5 @@ class OrderServiceTest {
     void testRegistNewOrder(OrderDTO orderInfo) {
         Assertions.assertDoesNotThrow(() -> orderService.registNewOrder(orderInfo));
     }
+
 }
