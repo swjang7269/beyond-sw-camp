@@ -8,16 +8,62 @@
         * {
             color: red;
         }
+        p {
+            color: blue;
+        }
+        #id4 {
+            color: purple;
+            background-color: yellowgreen;
+        }
+        .class1 {
+            color:aquamarine
+        }
+        .class2 {
+            color:blueviolet
+        }
     </style>
-    <link rel="stylesheet" href="css/selector.css"> <!-- 외부 스타일 시트를 가져와 인용하는 방식-->
+
+    <!-- 2. 외부 스타일 시트를 가져와 인용하는 방식 -->
+    <!-- 크롬 내부의 캐싱에 의해 외부 스타일이 바로 반영이 안될 수 있기 때문에 내부에서 적용을 해보고 나중에 외부로 빼는 방식으로 개발 권장 -->
+    <link rel="stylesheet" href="css/selector.css"> 
     <title>Document</title>
 </head>
 <body>
-    <h1>css 기본 선택자</h1>
+
+    <!-- 3. 인라인 방식 - 적용을 원하는 태그 내에 직접적으로 적용 -->
+    <h1 style="color:purple; background-color: aqua;">css 기본 선택자</h1>
     <p>선택자(selector란)<br>
         특정한 HTML 태그를 선택할 때 사용하는 기능으로, 태그를 선택하여 원하는 스타일과 기능을 적용할 수 있다.
     </p>
     <hr>
     <h2>모든 선택자</h2>
+
+    <p>HTML 문서 안의 모든 태그를 선택할 때 전체 선택자를 사용할 수 있다.</p>
+    <hr>
+    <h2>태그 선택자</h2>
+    <p>HTML 문서 내에 같은 태그를 모두 선택할 때 사용한다.</p>
+    <hr>
+    <h2>아이디 선택자</h2>
+    <p>HTML 문서 내에 해당하는 아이디 속성의 값을 가진 태그만 선택할 때 사용한다.</p>
+    <!-- ol>(li[id=id$]{아이디 선택자 테스트$})*5 -->
+    <ol>
+        <li id="id1">아이디 선택자 테스트1</li>
+        <li id="id2">아이디 선택자 테스트2</li>
+        <li id="id3">아이디 선택자 테스트3</li>
+        <li id="id4">아이디 선택자 테스트4</li>
+        <li id="id5">아이디 선택자 테스트5</li>
+    </ol>
+    <h2>클래스 선택자</h2>
+    <p>HTML 문서 내에 여러 개의 태그를 동일한 클래스명으로 복수 선택해서 지정하여 사용한다.(css는 왠만하면 하나의 element라도 class로 적용하자.)</p>
+    <!-- ul>(li[class=class$]{클래스 선택자 테스트$})*5 -->
+    <ul>
+        <li class="class1" id="id6">클래스 선택자 테스트1</li>
+        <li class="class2">클래스 선택자 테스트2</li>
+        <li class="class1">클래스 선택자 테스트3</li>
+        <li class="class2">클래스 선택자 테스트4</li>
+        <li class="class1">클래스 선택자 테스트5</li>
+    </ul>
+
+    <button>클릭!</button>
 </body>
 </html>

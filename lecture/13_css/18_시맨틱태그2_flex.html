@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background: blue;
+            width: 500px;
+            height: 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+        }
+        nav {
+            width: 80%;
+            height: 30px;
+            background: red;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .wrap {
+            display: flex;
+            width: 500px;
+            height: 300px;
+        }
+        section {
+            background: green;
+            width: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        article {
+            width: 80%;
+            height: 80px;
+            display: flex;
+            justify-content: center;
+            align-items: top;
+        }
+        article:first-child {
+            margin-top: auto;
+        }
+        .a1 { background: yellowgreen; }
+        .a2 { background: pink; }
+        .a3 { background: cyan; }
+        aside {
+            width: 100px;
+            background: cornsilk;
+            display: flex;
+            justify-content: center;
+            align-items: top;
+        }
+        footer {
+            width: 500px;
+            height: 50px;
+            background: purple;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>페이지 레이아웃 설정</h1>
+    <header>
+        header
+        <nav>nav</nav>
+    </header>
+    <div class="wrap">
+        <section>
+            section
+            <article class="a1">article</article>
+            <article class="a2">article</article>
+            <article class="a3">article</article>
+        </section>
+        <aside>aside</aside>
+    </div>
+    <footer>footer</footer>
+
+</body>
+</html>

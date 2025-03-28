@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .outer {
+            border: 1px solid red;
+            width: 500px;
+            height: 500px;
+            /* 자식의 absolute의 절대 좌표계를 해당 클래스의 좌표로 설정(relative가 없다면 화면 전체를 기준으로 좌표를 설정하게 된다.) */
+            position: relative;
+        }
+
+        .first {
+            width: 300px;
+            height: 300px;
+            background-color: magenta;
+            top: 0px;
+            left: 0px;
+            /* 절대 좌표계(relative의 위치를 기준으로 좌표 설정) */
+            position: absolute; 
+        }
+
+        .second {
+            width: 200px;
+            height: 200px;
+            background-color: aquamarine;
+            top: 50px;
+            left: 50px;
+            position: absolute;
+        }
+
+        .third {
+            width: 100px;
+            height: 100px;
+            background-color: blueviolet;
+            top: 100px;
+            left: 100px;
+            position: absolute;
+        }
+
+        .vis-test {
+            width: 100px;
+            height: 100px;
+            border: 1px solid black;
+        }
+
+        .vis-test1 {
+            background: magenta;
+        }
+
+        /* visibility는 존재하지만 안보이게, display: none은 존재 자체가 X */
+        .vis-test2 {
+            background: yellow;
+            /* 존재는 하나 보이지만 않게 */
+            visibility: hidden;
+
+            /* 요소 자체를 삭제 */
+            display: none;
+        }
+
+        .vis-test3 {
+            background: cyan;
+        }
+
+        /* Z-index: 물체 중 머가 앞에 있는지 판별 */
+        .z-test {
+            width: 150px;
+            height: 100px;
+            border: 1px solid black;
+        }
+
+        .wrap {
+            position: relative;
+        }
+
+        .z-test1 {
+            background: gold;
+            position: absolute;
+            top: 50px;
+            left: 50px;
+            z-index: 3;
+        }
+
+        .z-test2 {
+            background: silver;
+            position: absolute;
+            top: 100px;
+            left: 100px;
+            z-index: 2;
+        }
+
+        .z-test3 {
+            background: #da8a67;
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            z-index: 1;
+        }
+    </style>
+    <title>Document</title>
+</head>
+<body>
+    <body>
+        <h1>배치 관련 스타일</h1>
+        <h3>절대 위치와 상대 위치(중요!!)</h3>
+        <!-- div.outer>(div.positioning)*3 -->
+        <div class="outer">
+            <!-- 클래스는 띄어쓰면 클래스 이름이 2개인 것이다. positioning으로도 가능하고 first로도 가능하고 -->
+            <div class="positioning first"></div>
+            <div class="positioning second"></div>
+            <div class="positioning third"></div>
+        </div>
+    
+        <hr>
+    
+        <h3>visibility</h3>
+        <p>페이지에 특정 영역을 보이거나 보이지 않게 하는 속성</p>
+        <!-- div.vis-test.vis-test$*3 -->
+        <div class="vis-test vis-test1"></div>
+        <div class="vis-test vis-test2"></div>
+        <div class="vis-test vis-test3"></div>
+    
+        <h3>z-index</h3>
+        <p>페이지 안의 요소들을 위로 쌓는 속성</p>
+        <!-- div.wrap>(div.z-test.z-test${요소$})*3 -->
+        <div class="wrap">
+            <div class="z-test z-test1">요소1</div>
+            <div class="z-test z-test2">요소2</div>
+            <div class="z-test z-test3">요소3</div>
+        </div>
+</body>
+</html>
