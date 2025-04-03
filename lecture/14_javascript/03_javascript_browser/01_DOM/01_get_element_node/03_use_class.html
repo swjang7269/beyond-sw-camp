@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>03. class를 이용한 요소 노드 획득</h1>
+    <ul id="avilable">
+        <li class="drink coffee"><p>커피</p></li>
+        <li class="drink coke">콜라</li>
+        <li class="drink milk">우유</li>
+    </ul>
+
+    <ul id="unavailable">
+        <li class="drink soju">소주</li>
+        <li class="drink beer">맥주</li>
+    </ul>
+    <script>
+        const $drinks = document.getElementsByClassName("drink");
+        console.log($drinks);
+
+        [...$drinks].forEach(drink => drink.style.color = "red");
+        const $coffee = document.getElementsByClassName("drink coffee");
+        console.log($coffee);
+        console.log($coffee[0].innerHTML);  // 텍스트 노드에서 태그도 인식
+        console.log($coffee[0].innerText);  // 텍스트 노드에서 태그 무시
+    </script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>02. 태그 이름을 이용한 요소 노드 취득</h1>
+    <ul id="food">
+        <Li>김치찌개</Li>
+        <Li>된장찌개</Li>
+        <Li>고등어구이</Li>
+    </ul>
+    <ul id="drink">
+        <Li>커피</Li>
+        <Li>콜라</Li>
+        <Li>우유</Li>
+    </ul>
+    <script>
+        const $ul = document.getElementById('food');
+        console.log('$ul:', $ul);
+
+        const $lists = document.getElementsByTagName('li');
+        console.log($lists);
+
+        // writable이 false이므로 순수 배열이 아닌 유사 배열
+        console.log(Object.getOwnPropertyDescriptors($lists));
+
+        $lists[0].innerText = '비천';   // 객체는 건드릴 수 없으나 각 객체 내부의 속성은 건드릴 수 있다.
+
+        console.log($lists[0].innerText);
+        console.log($lists[1].innerText);
+
+        let changeColor = 0;
+        for(let i =0; i < $lists.length; i++) {
+            $lists[i].style.backgroundColor = "rgb(130, 220, " + changeColor + ")";
+            changeColor += 50;
+        }
+
+        // 스프레드 연산자를 활용해 배열로 바꾸고 모든 요소들을 돌아가며 color를 수정
+        [...$lists].forEach(list => list.style.color = "rgb(" + Math.random() * 255 + ", " + Math.random() * 255 + ", " + Math.random() * 255 + ")");
+    </script>
+
+</body>
+</html>

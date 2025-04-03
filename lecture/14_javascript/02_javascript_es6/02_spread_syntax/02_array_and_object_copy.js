@@ -29,5 +29,5 @@ console.log(obj.hobbies === objCopy.hobbies);   // false
 
 let classNum = 30;     // 추가
 let name = "아라한";   // 수정
-let newObj = {classNum, ...obj, name};  // obj의 name이 덮어씌어 수정 됨
+let newObj = {classNum, ...obj, name};  // obj의 name이 덮어씌어 수정 됨(obj의 name이 먼저 뿌려지고 나중에 사용자 name이 들어가기 때문에)
 console.log(newObj);
