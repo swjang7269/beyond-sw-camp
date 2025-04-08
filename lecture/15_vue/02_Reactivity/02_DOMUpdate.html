@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <h1>{{message}}</h1>
+        <button @click="updateMessage">Update Message</button>
+    </div>
+
+    <script>
+        const{createApp, ref, nextTick} = Vue;
+
+        createApp({
+            setup() {
+                const message = ref('미끌레르');
+
+                // 하나의 함수 안에서 DOM update 및 update 이후 작업을 하고 싶을 때
+                async function updateMessage() {
+                    // 데이터 변화가 DOM에 즉시 적용 되는지 확인
+                    // 함수 종료 후에 DOM에 변화가 반영이 되나 즉시 반영이 되도록 하고 싶다면 nextTick을 사용
+                    console.log('message 변화전:', document.querySelector('h1').innerText);
+                    message.value = '포르자 페라리'
+
+                    // promise 객체를 반환하는 비동기 함수
+                    // 이 시점에서 바뀐 데이터를 DOM에 반영하고 돌아와라 -> 해당 함수가 종료된 후 이후 실행
+                    // 함수가 끝나기 전에 바뀐 데이터가 DOM에 update 되는 구문
+                    console.log('message 변화후:', document.querySelector('h1').innerText);
+                }
+                return {
+                    message,
+                    updateMessage
+                }
+            }
+        }).mount('#app');
+    </script>
+</body>
+</html>
