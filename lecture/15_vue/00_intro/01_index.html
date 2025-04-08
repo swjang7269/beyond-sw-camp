@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="step01">
+        <h5>다중 속성 바인딩</h5>
+        <div>{{ multiAttr }}</div>
+        <button @click="func">ref에 담긴 객체 확인</button>
+    </div>
+    
+
+    <script>
+        // console.log(Vue);
+
+        const {createApp, ref} = Vue;
+        const vi = createApp({ // createApp사이의 함수가 model와 view사이에서 중계를 한다.
+            setup() {
+                // const multiAttr = ref('multiId');   // 데이터
+                const multiAttr = ref({
+                    id: 'multiId',
+                    class: 'multiClass',
+                    value: 'multiValue'
+                });
+
+                const func = () => {
+                    console.log(multiAttr.value);   // ref로 인지시킨건 .value로 접근해야함
+                    console.log(multiAttr.value.value);
+                }
+
+                return {
+                    multiAttr,
+                    func
+                }
+            }
+        }).mount('#step01');    // view
+    </script>
+</body>
+</html>

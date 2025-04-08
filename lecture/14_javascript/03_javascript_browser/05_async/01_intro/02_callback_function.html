@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function increase(number, callback) {
+            setTimeout(() => {
+                const result = number + 10;
+                if(callback) {  // 함수가 안넘어오면 false
+                    callback(result);
+                }
+            }, 1000);
+
+            setTimeout(() => {
+                const result = number + 10;
+                if(callback) {  // 함수가 안넘어오면 false
+                    callback(result);
+                }
+            }, 2000);
+
+        }
+
+        // increase(0, result => {console.log(result);});
+
+        // callback hell(비동기 함수의 순서 지정 가능(이전 함수의 결과가 필요하기에))
+
+        // 여러번 순차적으로 비동기 함수 호출의 결과들을 다음 콜백 함수로 던지기 위해서는
+        // 콜백 중첩을 사용해서 호출할 수 있다.
+
+        // 하지만 이러한 형태는 가독성도 좋지 않고 유지 보수도 힘든, 피해야할 패턴(안티패턴) 중 하나이다.
+        // 이러한 형태를 콜백 지옥(callback hell)이라고 하며 사용하지 않도록 하자.
+        increase(0, result => {
+            console.log('1:', result);    // 10
+            increase(result, result => {
+                console.log('2:', result);    // 20
+                increase(result, result => {
+                    console.log('3:', result);    // 30
+                    increase(result, result => {
+                        console.log('4:', result);    // 40
+                        increase(result, result => {
+                            console.log('5:', result);    // 50
+                            console.log('end');
+                        });
+                    });
+                });
+            });
+        })
+    </script>
+</body>
+</html>

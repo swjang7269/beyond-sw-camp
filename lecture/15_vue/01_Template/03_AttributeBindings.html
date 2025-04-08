@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <!-- 
+        Attribute Bindings
+            html 요소의 속성(attribute)을 컴포넌트 데이터 또는 props와 연결하는 기능으로
+            이를 통해 동적으로 속성 값을 변경하고 UI를 업데이트 할 수 console.error('있다',있다)
+
+            Bindings의 이점
+            1. 동적인 UI 업데이트
+            2. 코드 간소화
+            3. 컴포넌트 재사용
+            (단, 설계 난이도가 높아질 수 있으니 어느 정도 잘 고려하여 설계)
+    -->
+    <h5>속성 바인딩</h5>
+    <br>
+    <div id="step01">
+        <h5>bind 구문</h5>
+        <div v-bind:id="dynamicId">{{ value }}</div>
+        <!-- v-bind 지시자는 생략 가능하다 -->
+        <div :id="skipId">{{ skipValue }}</div>
+    </div>
+    <br>
+    <div id="step02">
+        <h5>비활성화</h5>
+        <input type="text" :disabled="isTrue" :value="isTrue">
+        <br>
+        <!-- <button v-on:click="activation">{{ isTrue }}</button> -->
+        <!-- v-on -> @ -->
+        <button @:click="activation">{{ isTrue }}</button>
+    </div>
+
+    <script>
+        const {createApp, ref, reactive} = Vue;
+        createApp({
+            setup() {
+                const dynamicId = ref('vue');
+                const value = ref('best');
+                const skipId = ref('skipId');
+                const skipValue = ref('skipValue');
+                return {
+                    dynamicId,
+                    value,
+                    skipId,
+                    skipValue
+                }
+            }
+        }).mount("#step01");
+
+        createApp({
+            setup() {
+
+                // 이 후에 reactive 파트에서 다루겠지만 vue가 제공하는 reactive 함수를 써서도 객체 데이터를 모델로 관리할 수 있다.
+                //  - 반응성 변수로 관리
+
+                // ref와 reactive의 차이점
+                //  1. ref는 모든 자료형을 관리할 수 있고 reactive는 객체 형태들만 관리할 수 있다.
+                //      객체를 관리할 때는 reactive가 내부적으로 속도가 더 빠르다.
+                //  2. ref는 setup()안에서 접근할 때 .value를 붙여야 하고 reactive는 바로 접근 가능
+                //      template영역에서는 둘 다 .value를 쓸 필요 없음
+                const isTrue = ref(false);
+                const refObj = ref({test:'ttt'});
+                const reactiveObj = reactive({test:'abc'});
+                const activation = () => {
+                    console.log("기존 isTrue값:", isTrue.value);
+                    console.log("refObj:", refObj);
+                    console.log("reactive:", reactiveObj);
+                    // ref로 관리되는 데이터는 setup 내에서는 .value를 통해서만 접근이 가능하다.
+                    isTrue.value = !isTrue.value;
+                }
+                return {
+                    isTrue,
+                    activation
+                }
+            }
+        }).mount("#step02");
+    </script>
+</body>
+</html>

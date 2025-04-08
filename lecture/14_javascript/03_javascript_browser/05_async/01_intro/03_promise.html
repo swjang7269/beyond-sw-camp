@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function increase(number) {
+            // 비동기 결과(성공/실패)를 가진 객체(콜백 지옥을 피하기 위해 사용)
+            const promise = new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    const result = number + 10;
+
+                    if(resolve > 50) {
+                        const e = new Error("NumberTooBig");
+                        return reject(e);
+                    }
+                    return resolve(result)
+                }, 1000);
+            });
+
+            return promise;
+        }
+
+        console.log(increase(0));
+
+        // .then 사용 이유 -> promise 객체 내부의 값을 다루기 위해서
+        // promise 객체 사용 이유 -> 비동기들 동기화를 위해(callback hell 피하기 위해)
+        // then: 이전 작업이 성공적으로 완료 되었을 때 promis에 담긴 성공 값(resolve)을 추출하여 확인하는 콜백함수가 동작하는 메소드
+        // catch: 작업 중 에러가 발생했을 때 콜백함수가 동작하는 메소드
+        // finally: 작업이 성공하든 실패하든 상관없이 항상 콜백함수가 동작하는 메소드
+
+        // 이 메소드들을 통해 들여쓰기가 줄어들어 가독성이 좋아지고 유지보수성이 향상된다.
+        increase(0)
+        .then(result => {
+            console.log('결과:', result);
+            return increase(result);
+        })
+        .then(result => {
+            console.log('결과:', result);
+            return increase(result);
+        })
+        .then(result => {
+            console.log('결과:', result);
+            return increase(result);
+        })
+        .then(result => {
+            console.log('결과:', result);
+            return increase(result);
+        })
+        .then(result => {
+            console.log('결과:', result);
+            return increase(result);
+        })
+        .then(result => {
+            console.log('결과:', result);
+            return increase(result);
+        })
+        .catch(error => console.log(error));
+    </script>
+</body>
+</html>

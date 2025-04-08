@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        async function callAPI() {
+            const promise = fetch('https://jsonplaceholder.typicode.com/users');
+            // console.log(promise);
+
+            // const response = await promise;
+            // console.log(response);
+
+            // const jsonPromise = response.json();
+            // console.log(jsonPromise);
+
+            // const result = await jsonPromise;
+            // console.log(result);
+            // console.log(result[2].username);
+
+            // 1. fetch의 결과인 promise를 then 메소드 활용
+            promise.then(response => {
+                console.log("then을 통한 fetch 이후 promise의 결과:", response)
+            });
+
+            // 2. async await를 활용
+            const response = await promise;
+            console.log("await을 통한 fetch 이후 promise의 결과:", response);
+
+            // 3. fetch의 결과로 돌아온 response 응용하기
+            // 3-1. status
+            console.log(`응답 상태: ${response.status}`);
+            
+            // 3-2. headers
+            console.log(`응답 헤더: ${response.headers}`);
+
+            // const headerIterator = response.headers[Symbol.Iterator]();
+            // let headerEntry = headerIterator.next();
+            // console.log(headerEntry.value);
+            // while(!headerEntry.done) {
+            //     const [key, value] = headerEntry.value;
+            //     console.log(`${key}: ${value}`);
+            //     headerEntry = headerIterator.next();
+            // }
+
+
+            // for in문: 객체의 프로퍼티들을 순회하며 확인하기 위한 반복문
+            // for of문: Symbol.iterator를 구현한 컬렉션 타입들을 반복하기 위한 반복문
+            for(let [key, value] of response.headers) {
+                console.log(`${key}: ${value}`);
+            }
+
+            // response를 json으로 파싱하면 파싱된 성공 결과를 지닌 promise 객체가 반환되고
+            // await로 성공 결과를 꺼낼 수 있다.
+            // 그렇게 꺼낸 성공 결과는 파싱되어 있어 js의 객체(리터럴 객체 or 배열)가 들어있다.
+
+            // json() 또는 text()를 하면 response 객체의 body를 사용한 것(bodyUsed가 true로) 두 개를 동시에 사용할 수 없다.
+            // 둘 다 적용하고 싶다면 json()으로 나온 객체를 JSON.stringify() 해서 문자열로 바꿔 사용할 수 있다.(JSON.parse()를 통해 반대도 가능)
+
+            // 3-3. bodyUsed
+            console.log(`넘어온 결과인 json 문자열을 사용했는지 여부: ${response.bodyUsed}`);
+
+            // const json = response.json();   // json 문자열 -> json 객체 형태로 파싱해서 사용
+            // console.log(json);
+            // console.log(`사용 여부(json): ${response.bodyUsed}`);
+            // console.log(JSON.stringify(json))   // json 객체 -> json 문자열
+
+            const json = response.text();   // json 문자열 -> js의 문자열로 사용
+            console.log(text);
+            console.log(`사용 여부(text): ${response.bodyUsed}`);
+            console.log(JSON.parse(text));  //js의 문자열(json 형태면) -> json 객체
+        }
+
+        callAPI();
+    </script>
+</body>
+</html>

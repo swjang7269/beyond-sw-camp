@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <!-- v-for -->
+    <!-- 배열을 기준으로  항목 목록을 렌더링하는 지시문(directive)이다. -->
+    <div id="step01">
+        <h5>과일가게</h5>
+        <ul>
+            <li v-for="item in items">{{ item }}</li>
+        </ul>
+    </div>
+
+    <div id="step02">
+        <ul>
+            <li v-for="info in profile">
+                {{ info }}
+            </li>
+            <br>
+
+            <!-- value, key, index의 순서는 고정 -->
+            <li v-for="(value, key, index) in profile">
+                {{index}} : {{key}} : {{value}}
+            </li>
+        </ul>
+    </div>
+
+    <!-- v-for는 데이터가 필요 없더라도 vue 인스턴스는 필요함 -->
+    <!-- 별도의 data 없이 범위만 있는 loop 렌더링 -->
+    <div id="step03">
+        <ul>
+            <li v-for="n in 10">{{n}}</li>
+        </ul>
+    </div>
+
+    <div id="step04">
+        <ul>
+            <!-- 
+                v-for와 v-if를 한 번에 작성할 수는 없다.(for로 꺼낸 item을 v-if에서 사용할 수 없다.)
+                    template을 활용해 하나의 태그에서 동시 처리 하지 않음
+            -->
+            <template v-for="item in items">
+                <li v-if="item.state">
+                    {{item.name}}
+                </li>
+            </template>
+        </ul>
+    </div>
+
+    <!--
+        :key
+        vue가 렌더링된 요소 목록을 업데이트 할 때 v-for는 기본적으로 반복되어 나온 DOM 요소들 전체를 확인하게 된다.
+        이 때 Vue가 각 노드의 id를 추적할 수 있도록 힌트를 주고 기존 요소를 재사용하여 순서를 변경함에 있어
+        용이하게 하기 위해서 key라는 정보를 제공하면 성능상 이점을 가질 수 있다.
+            사실상 반복문에서 필수록 적게 된다.
+    
+    -->
+    <div id="step05">
+        <!-- 풀스캔을 하지 않고 key값으로 바로 접근 가능하므로 좀 더 성능적으로 좋다.(키 값은 중복 X) -->
+        <div v-for="item in items" :key="item.id">
+            {{item.id}} - {{item.name}}
+        </div>
+    </div>
+
+    <script>
+        const {createApp, ref, reactive} = Vue;
+
+        createApp({
+            setup() {
+                const items = ref(['Apple', 'Pineapple', 'Lemon', 'Banana'])
+                return {
+                    items
+                }
+            }
+        }).mount('#step01');
+
+        createApp({
+            setup() {
+                const profile = reactive({
+                    name: '샤를 르클레르',
+                    address: '모나코',
+                    introduction: '모나코 왕자님'
+                })
+                return {
+                    profile
+                }
+            }
+        }).mount('#step02');
+
+        createApp({
+            setup() {
+                return {
+
+                }
+            }
+        }).mount('#step03');
+
+        createApp({
+            setup() {
+                const items = ref([
+                    {name: '해밀턴', state: true},
+                    {name: '막스', state: true},
+                    {name: '노리스', state: true},
+                    {name: '츠노다', state: false}
+                ])
+                return {
+                    items
+                }
+            }
+        }).mount('#step04');
+
+        createApp({
+            setup() {
+                const items = ref([
+                    {id: 0, name: '오콘'},
+                    {id: 1, name: '사인츠'},
+                    {id: 2, name: '르클레르'},
+                    {id: 3, name: '피아스타리'}
+                ])
+                return {
+                    items
+                }
+            }
+        }).mount('#step05');
+    </script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function increase(number) {
+            const promise = new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    const result = number + 10;
+
+                    if(result > 50) {
+                        const e = new Error("NumberTooBig");
+                        return reject(e);
+                    }
+                    return resolve(result);
+                }, 1000);
+            })
+            return promise;
+        }
+
+        // await의 두 가지 기능
+        // 1. await이 달린 함수의 결과인 promise 객체에 담긴 결과(성공/실패)를 반환한다.(then과 유사)
+        // 2. await이 달린 비동기 처리들은 그들 간에는 동기적으로 동작하게 한다.
+        //      앞선 비동기의 결과로 다음 비동기 함수를 실행
+        // then 메소드처럼 callback함수는 필요 없지만, 전체를 감싸는 asyc 함수는 반드시 필요하다.
+        //  주의: await을 쓰기 위해서 함수에 async를 달면 그 async함수는 promise를 반환한다.
+        async function run() {
+            let result = await increase(0);
+            console.log(result);
+            
+            result = await increase(result);
+            console.log(result);
+            
+            result = await increase(result);
+            console.log(result);
+            
+            result = await increase(result);
+            console.log(result);
+            
+            result = await increase(result);
+            console.log(result);
+
+            return -1;
+        }
+        console.log(run());
+    </script>
+</body>
+</html>

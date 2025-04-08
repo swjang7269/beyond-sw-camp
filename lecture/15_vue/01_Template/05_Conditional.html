@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <!-- v-show -->
+    <!-- 조건에 따라 요소를 화면에 보여주거나 숨기는데 사용한다. 토글을 위한 목적으로 자주 사용 -->
+    <div id="step01">
+        <button @click="setState">문자열 토글 버튼</button>
+        <!-- v-show에 false가 대입되면 인라인 스타일 방식으로 display:none이 적용된다. -->
+        <h1 v-show="state">hello</h1>
+    </div>
+
+    <!-- v-if -->
+    <!-- falsy일 경우 해당 요소 자체가 마운트 되지 않고 truthy/falsy 조건을 활용할 수 있다. -->
+    <div id="step02">
+        <div v-if="isTrue">
+            <p>참인 경우</p>
+        </div>
+        <div v-if="!isTrue">
+            <p>거짓인 경우</p>
+        </div>
+        <div v-if="truthy">
+            <p>{{ truthy }}</p>
+        </div>
+        <div v-if="!falsy">
+            <p>!falsy</p>
+        </div>
+    </div>
+
+    <div id="step03">
+        <h1 v-if="awesome == 'awesome'">Vue is awesome</h1>
+        <h1 v-else-if="awesome == 'good'">soso</h1>
+        <h1 v-else>oh no</h1>
+        <button @click="setToggle">toggle</button>
+    </div>
+
+    <!-- template 태그는 실제 DOM 요소로 해석되지 않고 범위를 지정하기 위한 용도로 쓸 수 있다. -->
+    <div id="step04">
+        <template v-if="isTrue">
+            <h1>awesome</h1>
+            <h2>good</h2>
+        </template>
+    </div>
+
+    <script>
+        const{createApp, ref} = Vue;
+        createApp({
+            setup() {
+                const state = ref(true);
+                function setState() {
+                    state.value = !state.value;
+                }
+                return {
+                    state, setState
+                }
+            }
+        }).mount("#step01");
+
+        createApp({
+            setup(){
+                const isTrue = ref(true);
+                const truthy = ref('truthy');
+                const falsy = ref('');
+
+                return {
+                    isTrue,
+                    truthy,
+                    falsy
+                }
+            }
+        }).mount("#step02");
+
+        createApp({
+            setup(){
+                const awesome = ref('');
+                let count = 0;
+
+                function setToggle() {
+                    const option = ['awesome', 'good', 'not goot'];
+                    const optionIndex = count % option.length;
+                    awesome.value = option[optionIndex];
+                    count++;
+                }
+                return{
+                    awesome,
+                    setToggle
+                }
+            }
+        }).mount("#step03");
+
+        createApp({
+            setup(){
+                const isTrue = ref(true);
+
+                return {
+                    isTrue
+                }
+            }
+        }).mount("#step04");
+    </script>
+</body>
+</html>

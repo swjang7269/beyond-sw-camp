@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <style>
+        .static {
+            width: 150px;
+            height:100px;
+        }
+        .active:hover {
+            background-color: red;
+        }
+    </style>
+    <title>Document</title>
+</head>
+<body>
+    <div id="step01">
+        <div :class="{active: isActive, static: isSize}">
+            {{ isActive }} <br>
+            {{ isSize }}
+        </div>
+    </div>
+
+    <div id="step02">
+        <div :class="classObj">{{ classObj }}</div>
+    </div>
+    <script>
+        const {createApp, ref, reactive} = Vue;
+
+        createApp({
+            setup() {
+                const isActive = ref(true);
+                const isSize = ref(true);
+                return {
+                    isActive,
+                    isSize
+                }
+            }
+        }).mount("#step01");
+
+        createApp({
+            setup() {
+                const isActive = ref(true);
+                const isSize = ref(true);
+                const classObj = reactive({
+                    active: isActive,
+                    size: isSize
+                })
+                return {
+                    classObj
+                }
+            }
+        }).mount("#step02");
+    </script>
+</body>
+</html>
