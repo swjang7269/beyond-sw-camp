@@ -86,12 +86,15 @@
     </div>
     <script>
         // onMounted 시점에 와인 데이터를 비동기로 가져오고, 와인과 관련된 상태(속성)과 기능을 따로 구분할 예정
-        const {createApp, ref, onMounted} = Vue;
+        
+        // toRefs를 활용해서 state에 담긴 프로퍼티를 각각 ref(반응형 변수) 역할을 하도록 바꿈
+        const {createApp, reactive, onMounted, toRefs} = Vue;   // toRefs: 객체의 프로퍼티를 ref로 바꿔준다.
 
         // setup내에 있던 구조를 함수로 추출하여 생성
         const useWines = () => {
-            const loadingState = ref(true);
-            const isMounted = ref(false);
+            // const loadingState = ref(true);
+            // const isMounted = ref(false);    // 두 변수를 한 객체로 다루어 보자
+            const state = reactive({loadingState: true, isMounted: false});
             
             // 와인 데이터를 조회하는 기능
             const fetchWines = async() => {
@@ -106,15 +109,25 @@
 
                 // mounted 시점에 위의 기능을 사용(와인 데이터를 조회)
                 await fetchWines();   // 통신이 완료될 때까지 대기
+
+                // 와인데이터를 조회하고 나서(비동기 통신 이후) 해야할 작업
+                // 데이터를 읽어오면 로딩 완료
+                // loadingState.value = false;
+                // 로딩 완료되면 css 적용
+                // isMounted.value = true;
+
+                // 객체의 속성으로 다루어 지기 때문에 .value를 입력하지 않아도 된다.
+                state.loadingState = false;
+                state.isMounted = true;
             });
-            
-            // return {loadingState:loadingState, isMounted:isMounted};
-            return {loadingState, isMounted};
+
+            // return {loadingState, isMounted};
+            return{...toRefs(state)};   // 객체로 생성돈 state의 속성들을 프로퍼티가 아닌 각각 ref로 만들어 반환
         }
 
         createApp({
             setup() {
-                const {loadingState, isMounted} = useWines();   // useWines의 반환을 선언한 객체에 할당
+                const {loadingState, isMounted} = useWines();   // useWines의 반환을 선언한 객체에 할당(객체 구조 분해 할당)
 
                 return{
                     loadingState,

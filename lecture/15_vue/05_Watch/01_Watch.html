@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <!-- 
+        watch:
+        데이터의 변경을 감지하고 그에 따라 추가 동작을 수행할 수 있다.
+        watch함수는 vue 인스턴스가 생성될 때 setup 함수 내부에서 사용된다.
+    -->
+    <div id="step01">
+        <p>
+            현재 값: {{currentValue}}
+        </p>
+        <p>
+            이전 값: {{previousValue}}
+        </p>
+        <p>
+            입력 받는 값: <input type="text" v-model="currentValue">
+        </p>
+    </div>
+
+    <div id="step02">
+        <p>
+            {{sum}}
+        </p>
+        <button @click="x++">x++</button>
+        <button @click="y++">y++</button>
+        <button @click="z++">z++</button>
+    </div>
+    <script>
+        const {createApp, ref, watch} = Vue;
+        createApp({
+            setup(){
+                const currentValue = ref('');
+                const previousValue = ref('');
+
+                /*
+                    currentValue를 주시하다가 변화 이후의 값 newVal, 변화 이전의 값 oldValue로 넘어옴
+                    첫 번쨰 인수: 감시 대상
+                    두 번째 인수: 감시 대상의 변화에 따른 추가 기능
+
+                    watch(propertyName, callback(newValue, oldValue) => {})
+                    1. propertyName: 변경을 감지할 속성
+                    2. callback: 변경 감지 시 수행할 동작
+                    3. newValue: 현재 입력된 새로운 값
+                    4. oldValue: 입력 이전의 값
+
+                    결론적으로, 감시자(watch)는 븐응형 변수에 추가 기능을 달아주거나 반응형 변수의 변경 이전 값 활용 시 사용된다.
+                */
+
+                watch(currentValue, (newVal, oldVal) => {
+                    if(newVal !== previousValue.value) {
+                        console.log('newVal',newVal);
+                        console.log('oldVal',oldVal);
+                        console.log('previousValue',previousValue);
+
+                        previousValue.value = oldVal;
+                    }
+                })
+                return {
+                    currentValue,
+                    previousValue
+                }
+            }
+        }).mount('#step01')
+
+        createApp({
+            setup(){
+                const x = ref(0);
+                const y = ref(0);
+                const z = ref(0);
+                const sum = ref(0);
+
+                // x, y, z 반응형 변수들 중에 어느 하나라도 변화가 생기면 콜백 함수 실행
+                // watch([x,y,z], (newVal, oldVal) => {
+                //     console.log(newVal);
+                //     console.log(oldVal);
+                //     sum.value = x.value + y.value + z.value;
+                // });
+
+
+                /*
+                    감시 대상이 될 반응형 변수들을 활용한 콜백 함수를 첫 번쨰 인수로 주고 감시 대상의 의미를 부여한다.
+                    두 번째 콜백 함수는 첫 번째 콜백 함수의 결과를 받아 실행된다.
+                    예제에서는 x와 y를 감시 대상으로 하며 첫 번째 콜백 함수는 x와 y의 변화에만 반응한다.
+                */
+                watch(() => {
+                    console.log('실행?');
+                    return x.value + y.value;
+                }, (result) => {
+                    sum.value = result;
+                });
+
+                return {
+                    x, y, z, sum
+                }
+            }
+        }).mount('#step02')
+    </script>
+</body>
+</html>

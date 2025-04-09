@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="step01">
+        <p>
+            {{num}}
+        </p>
+        <button @click="num++">num++</button>
+    </div>
+    <div id="step02">
+        <p>
+            {{num}}
+        </p>
+        <button @click="num++">num++</button>
+    </div>
+    <script>
+        /*
+            watch option:
+            watch 함수의 세 번째 인수로 전달되는 옵션 객체들을 말한다.
+            이 옵션을 통해 watch의 동작을 세밀하게 제어할 수 있다.
+            (immediate, deep, flush, onTrack, once, ...) -> immediate와 once만 알아보았다.
+        */
+        const {createApp, ref, watch} = Vue;
+
+        createApp({
+            setup() {
+                const num = ref(0);
+
+                // immediate 옵션을 watch에 추가하면 두 번째 인수로 전달된 콜백 함수가 1번 자동 실행된다.
+                //  내부적으로는 beforeCreated/created훅과 동일한 시점(setup 함수 실행 중)
+                watch(num, (newVal, oldVal) => {
+                    console.log('newVal',newVal);
+                    console.log('oldVal',oldVal);
+                },
+                {immediate: true}); // 실행하자마자 콜백 함수가 한 번 실행되도록 하는 옵션
+
+                return {
+                    num
+                }
+            }
+        }).mount('#step01')
+
+        createApp({
+            setup() {
+                const num = ref(0);
+
+                // once 옵션은 감시 대상의 변화를 감지하고 콜백 함수를 단 한 번만 실행되도록 한다.
+                watch(num, (newVal, oldVal) => {
+                    console.log('newVal',newVal);
+                    console.log('oldVal',oldVal);
+                },
+                {once: true});  // 변화 감지를 한 번만 하도록 하는 옵션
+
+                return {
+                    num
+                }
+            }
+        }).mount('#step02')
+    </script>
+</body>
+</html>

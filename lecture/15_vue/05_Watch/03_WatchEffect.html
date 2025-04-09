@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <style>
+        .todoCard {
+            background-color: #f9f9f9;
+            border: 1px solid #ccc;
+            padding: 16px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin: 10px 0;
+        }
+
+        .todoCard h3 {
+            margin-top: 0;
+        }
+    </style>
+    <title>Document</title>
+</head>
+<body>
+    <div id="step01">
+        <h1>watchEffect</h1>
+        <template v-for="todo in todos" :key="todo.id">
+            <div class="todoCard">
+                <h3>{{todo.title}}</h3>
+                <p>completed: {{todo.completed}}</p>
+            </div>
+        </template>
+    </div>
+
+    <script>
+        /*
+            watch와 watchEffect
+            1. watch와 달리 watchEffect는 첫 인수로 감시 대상이 필요 없고 동작할 콜백 함수만 존재
+            2. watch의 immediate옵션과 동일한 점은 처음부터(setup 시점) 한 번 동작한다는 점이다.
+        */
+        const {createApp, ref, watchEffect} = Vue;
+
+        createApp({
+            setup() {
+                const todos = ref([]);
+
+                watchEffect(
+                    () => {
+                        console.log('watchEffect 실행');
+                    }
+                )
+                return {
+                    todos
+                }
+            }
+        }).mount('#step01');
+    </script>
+</body>
+</html>
