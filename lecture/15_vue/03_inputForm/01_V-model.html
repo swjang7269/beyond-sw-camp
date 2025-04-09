@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <style>
+        div {
+            border: 1px solid black;
+            padding: 5px;
+        }
+        .custom-input input {
+            width: 200px;
+            padding: 5px;
+            border: 1px solid #ccc;
+        }
+    </style>
+    <title>Document</title>
+</head>
+<body>
+    <div id="step01">
+        <h4>name: {{name}}</h4>
+        <h4>address {{address}}</h4>
+        <h4>age: {{age}}</h4>
+        <h4>introduce: {{introduce}}</h4>
+
+        <label>이름: </label>
+        <input type="text" v-model="name">
+        <br>
+        <label>주소: </label>
+        <input type="text" v-model="address">
+        <br>
+        <!-- 
+            type=number와 같은 기능을 수행한다. 숫자로 변환되지 않으면 v-model에 영향을 받지 않는다.
+                단, 숫자로 시작했을 시
+        -->
+        <label>나이: </label>
+        <input type="text" v-model.number="age">
+        <br>
+        <!-- time은 앞 뒤 공백 입력 시 v-model에 반영되지 않음 -->
+        <label>자기소개: </label>
+        <input type="text" v-model.trim="introduce">
+    </div>
+
+    <!-- textarea -->
+    <div id="step02">
+        <p>페라리에 대한 생각을 작성해 주세요: {{message}}</p>
+        <textarea v-model="message"></textarea>
+
+        <!-- textarea 작성 후 blur(포커스가 빠질 시) 데이터가 수정 -> 데이터 수정 횟수 감소 효과 -->
+        <p>느리게 반영되는 msg: {{msg}}</p>
+        <textarea v-model.lazy="msg"></textarea>
+    </div>
+
+    <!-- select -->
+     <div id="step03">
+
+        <!-- option 태그가 바뀌면(다른 선택을 하면) change 이벤트가 발생하고 해당 데이터도 변경됨 -->
+        <p>단일 선택: {{selected}}</p>
+        <select v-model="selected" @change="check">
+            <option value="메르세데스">메르세데스</option>
+            <option value="맥라렌">맥라렌</option>
+            <option value="페라리">페라리</option>
+            <option value="레드불">레드불</option>
+        </select>
+        <br>
+
+        <p>다중 선택: {{f1s}}</p>
+        <select v-model="f1s" multiple>
+            <option value="메르세데스">메르세데스</option>
+            <option value="맥라렌">맥라렌</option>
+            <option value="페라리">페라리</option>
+            <option value="레드불">레드불</option>
+        </select>
+    </div>
+
+    <!-- check box -->
+    <!-- 
+        const index = f1.indexOf(event.srcElement.value)
+        if(index != -1) {
+            f1.splice(index, 1);
+        } else {
+            f1. push(event.srcElement.value)
+        }
+    -->
+    <div id="step04">
+        <p>f1목록: {{f1}}</p>
+        <input type="checkbox" id="윌리암스" name="check" value="윌리암스" v-model="f1">
+        <label for="윌리암스">윌리암스</label>
+        <input type="checkbox" id="하스" name="check" value="하스" v-model="f1">
+        <label for="하스">하스</label>
+        <input type="checkbox" id="알핀" name="check" value="알핀" v-model="f1">
+        <label for="알핀">알핀</label>
+        <input type="checkbox" id="애스턴마틴" name="check" value="애스턴마틴" v-model="f1">
+        <label for="애스턴마틴">애스턴마틴</label>
+        <input type="checkbox" id="자우버" name="check" value="자우버" v-model="f1">
+        <label for="자우버">자우버</label>
+        <input type="checkbox" id="애스턴마틴" name="check" value="레이싱불스" v-model="f1">
+        <label for="레이싱불스">레이싱불스</label>
+        
+        <br>
+
+        <p>toggle: {{toggle}}</p>
+        <input type="checkbox" v-model="toggle" :true-value="dynamicTrueValue" :false-value="dynamicFalseValue">
+    </div>
+    <script>
+        const {createApp, ref} = Vue;
+        
+        createApp({
+            setup(){
+                const name = ref('');
+                const address = ref('');
+                const age = ref(0);
+                const introduce = ref('');
+                return {
+                    name,
+                    address,
+                    age,
+                    introduce
+                }
+            }
+        }).mount('#step01');
+
+        createApp({
+            setup(){
+                const message = ref('');
+                const msg = ref('');
+
+                return {
+                    message,
+                    msg
+                }
+            }
+        }).mount('#step02');
+
+        createApp({
+            setup(){
+                const selected = ref('페라리');
+                function check() {
+                    console.log(selected.value);
+                }
+                const f1s = ref([]);
+                return {
+                    selected,
+                    check,
+                    f1s
+                }
+            }
+        }).mount('#step03');
+
+        createApp({
+            setup(){
+                const f1 = ref([]);
+                const toggle = ref('');
+                const dynamicTrueValue = ref('포르자 페라리');
+                const dynamicFalseValue = ref('@신 페라리');
+                return {
+                    f1,
+                    toggle,
+                    dynamicTrueValue,
+                    dynamicFalseValue
+                }
+            }
+        }).mount('#step04');
+    </script>
+</body>
+</html>

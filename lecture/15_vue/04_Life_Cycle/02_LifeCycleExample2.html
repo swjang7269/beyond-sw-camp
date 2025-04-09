@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <style>
+        .rootContainer {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .appContainer {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            border: 1px dotted black;
+            width: 80%;
+            height: 100%;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .wine-card {
+            display: flex;
+            flex-direction: column;
+            width: 30%;
+            height: 300px;
+            border: 1px solid black;
+            justify-content: center;
+            align-items: center;
+            margin-top: 5px;
+            margin-bottom: 5px;
+            margin-left: 5px;
+            margin-right: 5px;
+        }
+
+        .image {
+            width: 70px;
+            height: 100px;
+        }
+
+        .btn-group {
+            display: flex;
+            width: 60%;
+            justify-content: space-around;
+        }
+
+        .btn {
+            width: 50px;
+            height: 50px;
+        }
+
+        .neon {
+            color: #fff;
+            text-shadow: 0 0 10px #00f, 0 0 20px #00f, 0 0 30px #00f, 0 0 40px #00f, 0 0 70px #00f, 0 0 80px #00f, 0 0 100px #00f, 0 0 150px #00f;
+            animation: neonAnimation 1s ease-in-out infinite alternate;
+        }
+
+        @keyframes neonAnimation {
+            from {
+                text-shadow: 0 0 10px #00f, 0 0 20px #00f, 0 0 30px #00f, 0 0 40px #00f, 0 0 70px #00f, 0 0 80px #00f, 0 0 100px #00f, 0 0 150px #00f;
+            }
+
+            to {
+                text-shadow: 0 0 5px #00f, 0 0 10px #00f, 0 0 15px #00f, 0 0 20px #00f, 0 0 35px #00f, 0 0 40px #00f, 0 0 50px #00f, 0 0 75px #00f;
+            }
+        }
+    </style>
+    <title>Document</title>
+</head>
+<body>
+    <div id="app" class="rootContainer">
+        <div v-if="loadingState">
+            로딩을 준비합니다.
+        </div>
+        <template v-else>
+            <h1 :class="{'neon': isMounted}">인생 f1</h1>
+            <div class="btn-group">
+                <button class="btn">back</button>
+                <button class="btn">next</button>
+            </div>
+        </template>
+    </div>
+    <script>
+        // onMounted 시점에 와인 데이터를 비동기로 가져오고, 와인과 관련된 상태(속성)과 기능을 따로 구분할 예정
+        const {createApp, ref, onMounted} = Vue;
+
+        // setup내에 있던 구조를 함수로 추출하여 생성
+        const useWines = () => {
+            const loadingState = ref(true);
+            const isMounted = ref(false);
+            
+            // 와인 데이터를 조회하는 기능
+            const fetchWines = async() => {
+                const response = await fetch('https://api.sampleapis.com/wines/reds');
+                const data = await response.json();
+                console.log("가져온 와인 데이터:", data);
+            }
+
+            // async -> 비동기 함수로 바꾼다.(내부에서 await 사용 가능 및 promise 객체 반환)
+            onMounted(async() => {
+                console.log("DOM이 mount 된 후");
+
+                // mounted 시점에 위의 기능을 사용(와인 데이터를 조회)
+                await fetchWines();   // 통신이 완료될 때까지 대기
+            });
+            
+            // return {loadingState:loadingState, isMounted:isMounted};
+            return {loadingState, isMounted};
+        }
+
+        createApp({
+            setup() {
+                const {loadingState, isMounted} = useWines();   // useWines의 반환을 선언한 객체에 할당
+
+                return{
+                    loadingState,
+                    isMounted
+                }
+            }
+        }).mount('#app')
+    </script>
+</body>
+</html>
