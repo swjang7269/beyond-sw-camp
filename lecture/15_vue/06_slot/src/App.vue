@@ -7,10 +7,20 @@
         template 태그는 DOM tree로 구성되지 않고 렌더링 될 때 해석되지 않는다.
 -->
 <template>
+    <header>
     <div class="redColor">
         <p>ㅎㅇ?</p>
         <MyComponent/>
     </div>
+    </header>
+    <main>
+        <SlotParent/>
+        <NamedParent/>
+        <DynamicParent/>
+    </main>
+    <footer>
+
+    </footer>
 </template>
 
 <!-- 
@@ -19,7 +29,10 @@
 -->
 
 <script setup>
-    import MyComponent from './components/01_component/MyComponent.vue';
+    import MyComponent from '@/components/01_component/MyComponent.vue';
+    import SlotParent from './components/02_slotIntro/SlotParent.vue';
+    import NamedParent from './components/03_namedSlot/namedParent.vue';
+    import DynamicParent from './components/04_dynamicSlot/dynamicParent.vue';
 </script>
 
 <!-- 
