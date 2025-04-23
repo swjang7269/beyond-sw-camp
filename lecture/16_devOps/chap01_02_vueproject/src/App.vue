@@ -46,7 +46,16 @@
     // 4. 백엔드에서 x, 프론트에서 cors(docer-compose를 활용해 네트워크로 통신, 둘 다 컨테이너)
 
     // 5. 백엔드에서 cors, 프론트에서 x(kubernetes의 백엔드 워커 노드로 요청)
-    const response = await fetch(`http://localhost:30001/plus`, { // 백엔드 워커노드의 포트 번호
+    // const response = await fetch(`http://localhost:30001/plus`, { // 백엔드 워커노드의 포트 번호
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json;charset=UTF-8'
+    //   },
+    //   body: JSON.stringify({num1: num1.value, num2: num2.value})
+    // })
+
+    // 6. kubernetes에 nginx + ingress를 추가(프론트에서 X, 백엔드에서 X)
+    const response = await fetch(`/boot/plus`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json;charset=UTF-8'

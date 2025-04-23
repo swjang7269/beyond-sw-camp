@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  # deployment의 이름
+  name: boot002dep
+spec:
+  # Deployment가 어떤 포드를 관리할지를 결정하는 기준입니다. 여기서는 matchLabels를 사용하여 특정 레이블을 가진 포드들을 선택하고 관리
+  selector:
+    matchLabels:
+      app: boot002kube
+  replicas: 1
+
+  template:
+    metadata:
+      # 해당 컨테이너의 label은 boot002kube이다.
+      labels:
+        app: boot002kube
+    spec:
+      # 선택한 이미지로 해당 이름으로 컨테이너로 띄우겠다
+      containers:
+      - name: boot-container
+        image: astraze/k8s_14_boot:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 7777
